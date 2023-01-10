@@ -11,8 +11,8 @@ using System.Linq;
 
 public class Program
 {
-    static ITelegramBotClient bot = new TelegramBotClient("5842668948:AAG8kaYQH4xHEk6tykiOmIFFwMyRxdWpdAA");
-
+    static ITelegramBotClient bot = new TelegramBotClient("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+                                                         
 
     static long chatId = 0;
     static string message;
@@ -454,20 +454,21 @@ public class Program
 
         using (MailMessage mail = new MailMessage())
         {
-            mail.From = new MailAddress("sender@gmail.com");
+            mail.From = new MailAddress("araka86@gmail.com");
             mail.To.Add("tremendous1003@gmail.com");
             mail.Subject = "Sub";
             mail.Body = $"{template}";
             mail.IsBodyHtml = true;
             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("sender@gmail.com", "xxxxxxxxxxxxxxxx"); // email and application password
+                smtp.Credentials = new NetworkCredential("araka86@gmail.com", "lbtgudbcihlvkjks"); // email and application password
                 smtp.EnableSsl = true;
                 smtp.Send(mail);
             }
         }
         return "maill Send!!!";
     }
+   
 
     #region Buttons
     private static IReplyMarkup GetButtons()
