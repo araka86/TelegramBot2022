@@ -11,7 +11,8 @@ using System.Linq;
 
 public class Program
 {
-    static ITelegramBotClient bot = new TelegramBotClient("5842668948:AAG8kaYQH4xHEk6tykiOmIFFwMyRxdWpdAA");
+    static string botToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_API_TOKEN");
+    static ITelegramBotClient bot = new TelegramBotClient(botToken);
 
 
     static long chatId = 0;
