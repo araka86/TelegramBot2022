@@ -6,13 +6,11 @@ using System.Text;
 using System.Net;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-using System.IO;
-using System.Linq;
+using TelegramBot;
+
 
 public class Program
 {
-    static ITelegramBotClient bot = new TelegramBotClient("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-                                                         
 
     static long chatId = 0;
     static string message;
@@ -165,6 +163,7 @@ public class Program
                 }
             }
 
+           
             //Vulgarity block list - bad words
             for (int x = 0; x < badWords.Length; x++)
             {
@@ -363,6 +362,16 @@ public class Program
                         replyMarkup: GetButton(chatId),
                         cancellationToken: cancellationToken);
                         break;
+                    case "getVariablesEnviroment":
+                        sentMessage = await botClient.SendTextMessageAsync(
+                        chatId: chatId,
+                        SecretService.PrintEnviromentSystem(),
+
+
+
+
+                        cancellationToken: cancellationToken);
+                        break;
                     #endregion
                     #region Send_Buttons+Link_to_Channel
                     case "buttons":
@@ -402,6 +411,12 @@ public class Program
 
     private static async Task Main(string[] args)
     {
+        SecretService.InitEnviroment();
+
+        string botToken = Environment.GetEnvironmentVariable("TELEGRAM_BOT_API_TOKEN");
+        ITelegramBotClient bot = new TelegramBotClient(botToken);
+
+
         Console.WriteLine("Запущен бот " + bot.GetMeAsync().Result.FirstName);
 
         var cts = new CancellationTokenSource();
@@ -461,7 +476,7 @@ public class Program
             mail.IsBodyHtml = true;
             using (SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587))
             {
-                smtp.Credentials = new NetworkCredential("araka86@gmail.com", "lbtgudbcihlvkjks"); // email and application password
+                smtp.Credentials = new NetworkCredential("araka86@gmail.com", System.IO.File.ReadAllText(SecretService.PathApiMail)); // email and application password
                 smtp.EnableSsl = true;
                 smtp.Send(mail);
             }
